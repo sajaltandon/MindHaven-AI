@@ -1,6 +1,7 @@
 import streamlit as st
 import torch
 from transformers import BertTokenizer, BertForSequenceClassification, T5Tokenizer, T5ForConditionalGeneration
+import os
 
 # === Setup device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -18,10 +19,37 @@ intent_model = BertForSequenceClassification.from_pretrained(intent_model_path).
 intent_model.eval()
 
 # === Load Coping Tip Generator
-t5_model_path = r"C:\Users\sajal\Desktop\NLP Project_updated\t5_coping_model"
+t5_model_path = "./t5_coping_model"
 t5_tokenizer = T5Tokenizer.from_pretrained(t5_model_path)
 t5_model = T5ForConditionalGeneration.from_pretrained(t5_model_path).to(device)
 t5_model.eval()
+
+# === Check if model files exist (for debugging on Streamlit Cloud) ===
+def check_model_files(model_dir, required_files):
+    missing = []
+    for f in required_files:
+        if not os.path.exists(os.path.join(model_dir, f)):
+            missing.append(f)
+    if missing:
+        print(f"WARNING: Missing files in {model_dir}: {missing}")
+    else:
+        print(f"All required files found in {model_dir}.")
+
+# Check T5 model files
+check_model_files(
+    "./t5_coping_model",
+    ["config.json", "tokenizer_config.json", "special_tokens_map.json", "spiece.model", "model.safetensors"]
+)
+# Check Emotion model files
+check_model_files(
+    "./mental_health_bert_model_best",
+    ["config.json", "tokenizer_config.json", "special_tokens_map.json", "vocab.txt", "model.safetensors"]
+)
+# Check Intent model files
+check_model_files(
+    "./intent_classifier_bert_best",
+    ["config.json", "tokenizer_config.json", "special_tokens_map.json", "vocab.txt", "model.safetensors"]
+)
 
 # === Functions
 def classify_emotion(text):

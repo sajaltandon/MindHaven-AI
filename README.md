@@ -1,21 +1,46 @@
-# Mental Health NLP Project
+# MindHaven AI - Mental Health Support System
 
-This project implements a comprehensive Natural Language Processing (NLP) system for mental health support, consisting of three main components:
+MindHaven AI is an advanced Natural Language Processing (NLP) system designed to provide mental health support through intelligent conversation and coping strategy generation. The system combines multiple state-of-the-art language models to understand user intents, analyze mental health content, and generate personalized coping strategies.
 
-1. **T5 Coping Strategy Generator**: Generates coping strategies based on user input
-2. **BERT Intent Classifier**: Classifies user intents from their messages
-3. **BERT Mental Health Classifier**: Analyzes mental health-related content
+## 🌟 Features
 
-## Project Structure
+- **Intelligent Intent Classification**: Understands user messages and classifies their intents using BERT
+- **Mental Health Analysis**: Analyzes mental health-related content using specialized BERT model
+- **Personalized Coping Strategies**: Generates contextually relevant coping strategies using T5 model
+- **Comprehensive Workflow**: Integrated system that combines all components for seamless interaction
+
+## 🏗️ Architecture
+
+The system consists of three main components:
+
+1. **T5 Coping Strategy Generator**
+   - Based on T5 architecture
+   - Generates personalized coping strategies
+   - Trained on expanded dataset of coping tips
+   - Handles various mental health scenarios
+
+2. **BERT Intent Classifier**
+   - Fine-tuned BERT model
+   - Classifies user intents from messages
+   - Trained on 5000+ entries
+   - Supports multiple intent categories
+
+3. **BERT Mental Health Classifier**
+   - Specialized BERT model
+   - Analyzes mental health content
+   - Trained on 4000+ entries
+   - Provides mental health context analysis
+
+## 📦 Project Structure
 
 ```
-├── model1.ipynb                 # Development notebook for model 1
-├── model2.ipynb                 # Development notebook for model 2
-├── model3.ipynb                 # Development notebook for model 3
-├── inference.py                 # Inference script for model 1
-├── inference2.py               # Inference script for model 2
-├── inference3.py               # Inference script for model 3
-├── workflow.py                 # Main workflow script
+├── model1.ipynb                 # Development notebook for T5 model
+├── model2.ipynb                 # Development notebook for Intent Classifier
+├── model3.ipynb                 # Development notebook for Mental Health Classifier
+├── inference.py                 # Inference script for T5 model
+├── inference2.py               # Inference script for Intent Classifier
+├── inference3.py               # Inference script for Mental Health Classifier
+├── workflow.py                 # Main workflow integration script
 ├── datasets/
 │   ├── T5_Coping_Tip_Dataset__Expanded_.csv
 │   ├── Intent_Classification_Dataset__5000_entries_.csv
@@ -26,12 +51,20 @@ This project implements a comprehensive Natural Language Processing (NLP) system
     └── mental_health_bert_model_best/
 ```
 
-## Setup and Installation
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.8 or higher
+- Git LFS (for handling large model files)
+- Sufficient disk space for model files
+
+### Installation
 
 1. Clone the repository:
 ```bash
-git clone [your-repository-url]
-cd [repository-name]
+git clone https://github.com/sajaltandon/MindHaven-AI.git
+cd MindHaven-AI
 ```
 
 2. Install dependencies:
@@ -39,39 +72,49 @@ cd [repository-name]
 pip install -r requirements.txt
 ```
 
-## Usage
+### Usage
 
-1. For inference using the models:
+1. For individual model inference:
 ```bash
+# Generate coping strategies
 python inference.py
+
+# Classify user intent
 python inference2.py
+
+# Analyze mental health content
 python inference3.py
 ```
 
-2. For the complete workflow:
+2. For complete workflow:
 ```bash
 python workflow.py
 ```
 
-## Model Details
+## 📊 Model Performance
 
-### T5 Coping Strategy Generator
-- Based on T5 architecture
-- Generates coping strategies based on user input
-- Trained on expanded coping tip dataset
+- **T5 Coping Strategy Generator**: Generates contextually relevant coping strategies
+- **BERT Intent Classifier**: High accuracy in intent classification
+- **BERT Mental Health Classifier**: Precise mental health content analysis
 
-### BERT Intent Classifier
-- Fine-tuned BERT model
-- Classifies user intents
-- Trained on 5000 entries dataset
+## 🤝 Contributing
 
-### BERT Mental Health Classifier
-- Fine-tuned BERT model
-- Analyzes mental health content
-- Trained on 4000 entries dataset
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Note
-The model weights and large files are not included in this repository due to size limitations. Please contact the maintainers for access to the model files.
+## 📝 License
 
-## License
-[Your chosen license] 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 👥 Authors
+
+- **Sajal Tandon** - *Initial work* - [GitHub Profile](https://github.com/sajaltandon)
+
+## 🙏 Acknowledgments
+
+- Thanks to the open-source community for the amazing tools and libraries
+- Special thanks to Hugging Face for their transformer models and tools
+- Gratitude to all contributors and supporters of this project
+
+## ⚠️ Important Note
+
+This system is designed to provide support and coping strategies but is not a replacement for professional mental health care. Always consult with qualified mental health professionals for serious concerns. 

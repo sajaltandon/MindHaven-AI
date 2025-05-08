@@ -5,7 +5,7 @@ MindHaven AI is an advanced Natural Language Processing (NLP) system designed to
 ## 🌟 Features
 
 - **Intelligent Intent Classification**: Understands user messages and classifies their intents using BERT
-- **Mental Health Analysis**: Analyzes mental health-related content using specialized BERT model
+- **Mental Health Analysis**: Analyzes mental health-related content using specialized  fine-tuned BERT model
 - **Personalized Coping Strategies**: Generates contextually relevant coping strategies using T5 model
 - **Comprehensive Workflow**: Integrated system that combines all components for seamless interaction
 

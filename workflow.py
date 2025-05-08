@@ -2,27 +2,87 @@ import streamlit as st
 import torch
 from transformers import BertTokenizer, BertForSequenceClassification, T5Tokenizer, T5ForConditionalGeneration
 import os
+import sys
+
+print("Python version:", sys.version)
+print("PyTorch version:", torch.__version__)
+print("CUDA available:", torch.cuda.is_available())
+print("CUDA version:", torch.version.cuda if torch.cuda.is_available() else 'N/A')
 
 # === Setup device
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+try:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+except Exception as e:
+    print(f"Error setting up device: {str(e)}")
+    raise
 
 # === Load Emotion Classifier
-emotion_model_path = "./mental_health_bert_model_best"
-emotion_tokenizer = BertTokenizer.from_pretrained(emotion_model_path)
-emotion_model = BertForSequenceClassification.from_pretrained(emotion_model_path).to(device)
-emotion_model.eval()
+try:
+    emotion_model_path = "./mental_health_bert_model_best"
+    print(f"Loading emotion model from: {os.path.abspath(emotion_model_path)}")
+    print("Files in emotion model directory:", os.listdir(emotion_model_path))
+    
+    # First load tokenizer
+    emotion_tokenizer = BertTokenizer.from_pretrained(emotion_model_path)
+    print("Emotion tokenizer loaded successfully")
+    
+    # Then load model
+    emotion_model = BertForSequenceClassification.from_pretrained(emotion_model_path)
+    print("Emotion model loaded successfully")
+    
+    # Move to device
+    emotion_model = emotion_model.to(device)
+    print(f"Emotion model moved to {device}")
+    
+    emotion_model.eval()
+    print("Emotion model set to eval mode")
+except Exception as e:
+    print(f"Error loading emotion model: {str(e)}")
+    print(f"Error type: {type(e)}")
+    import traceback
+    traceback.print_exc()
+    raise
 
 # === Load Intent Classifier
-intent_model_path = "./intent_classifier_bert_best"
-intent_tokenizer = BertTokenizer.from_pretrained(intent_model_path)
-intent_model = BertForSequenceClassification.from_pretrained(intent_model_path).to(device)
-intent_model.eval()
+try:
+    intent_model_path = "./intent_classifier_bert_best"
+    print(f"Loading intent model from: {os.path.abspath(intent_model_path)}")
+    
+    intent_tokenizer = BertTokenizer.from_pretrained(intent_model_path)
+    print("Intent tokenizer loaded successfully")
+    
+    intent_model = BertForSequenceClassification.from_pretrained(intent_model_path)
+    print("Intent model loaded successfully")
+    
+    intent_model = intent_model.to(device)
+    print(f"Intent model moved to {device}")
+    
+    intent_model.eval()
+    print("Intent model set to eval mode")
+except Exception as e:
+    print(f"Error loading intent model: {str(e)}")
+    raise
 
 # === Load Coping Tip Generator
-t5_model_path = "./t5_coping_model"
-t5_tokenizer = T5Tokenizer.from_pretrained(t5_model_path)
-t5_model = T5ForConditionalGeneration.from_pretrained(t5_model_path).to(device)
-t5_model.eval()
+try:
+    t5_model_path = "./t5_coping_model"
+    print(f"Loading T5 model from: {os.path.abspath(t5_model_path)}")
+    
+    t5_tokenizer = T5Tokenizer.from_pretrained(t5_model_path)
+    print("T5 tokenizer loaded successfully")
+    
+    t5_model = T5ForConditionalGeneration.from_pretrained(t5_model_path)
+    print("T5 model loaded successfully")
+    
+    t5_model = t5_model.to(device)
+    print(f"T5 model moved to {device}")
+    
+    t5_model.eval()
+    print("T5 model set to eval mode")
+except Exception as e:
+    print(f"Error loading T5 model: {str(e)}")
+    raise
 
 # === Check if model files exist (for debugging on Streamlit Cloud) ===
 def check_model_files(model_dir, required_files):
